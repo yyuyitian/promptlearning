@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan Repayment Calculator</title>
+</head>
+
+<body>
+  <h1>Loan Repayment Calculator</h1>
+  <form>
+    <label>Loan Amount:</label>
+    <input type="number" name="loan_amount">
+    <br>
+    <label for="annual_rate">Annual Interest Rate:</label>
+    <input type="number" id="annual_rate" name="annual_rate" step="0.01" oninput="this.value = parseFloat(this.value) / 100;">
+    <br>
+    <label>Expiration Date:</label>
+    <input type="date" name="expire_date">
+    <br>
+    <label>Today's Date:</label>
+    <input type="date" name="today_string" value="2022-01-01">
+    <br>
+    <label>Payment Day:</label>
+    <select name="payment_day">
+      <option value="1">1st</option>
+      <option value="15">15th</option>
+    </select>
+    <br>
+    <button type="submit">Calculate Repayment</button>
+  </form>
+
+  <script>
+    const form = document.querySelector('form'); // 选中表单元素
+    form.addEventListener('submit', async (e) => { // 添加事件监听器
+      e.preventDefault(); // 组织页面重载
+      const formData = new FormData(form); // 创建一个formdata对象
+      const requestData = {};
+      for (let [key, value] of formData.entries()) {
+        requestData[key] = value; // 转化为可序列化的格式
+      }
+      const response = await fetch('/calculate', { // 向服务器发送一个post请求
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+      });
+      const repayment = await response.json(); // 提取json数据，await异步等待，在等待期间，javascript的运行时会暂停当前函数的执行，并允许其他代码继续执行
+      const list = document.createElement('ul'); // 创建<ul>元素
+      const item = document.createElement('li');
+      item.innerHTML = `还款本金\t还款利息\t还款金额\t日期`;
+      list.append(item);
+      for (let i = 0; i < repayment.length; i++) {
+        const item = document.createElement('li');
+        const data = repayment[i];
+        const date = new Date(data[3]);
+        const dateString = date.toLocaleDateString('en-US');
+        item.innerHTML = `${Number(data[0]).toFixed(2)}, ${Number(data[1]).toFixed(2)}, ${Number(data[2]).toFixed(2)}, ${dateString}`;
+        list.appendChild(item);
+      }
+      document.body.appendChild(list);
+
+      console.log(repayment);
+    });
+  </script>
+</body>
+
+</html>
