@@ -1,4 +1,5 @@
 '''
+first lesson
 Guidelines for Prompting
 In this lesson, you'll practice two prompting principles and their related tactics in order to write effective prompts for large language models.
 '''
@@ -8,7 +9,7 @@ import os
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())
 
-openai.api_key  = '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'
+openai.api_key  = ''
 
 def get_completion(prompt, model="gpt-3.5-turbo"):
     messages = [{"role": "user", "content": prompt}]
@@ -259,8 +260,9 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
 # response = get_completion(prompt)
 # print(response)
 
-prompt = f"""
-Tell me about AeroGlide UltraSlim Smart Toothbrush by Boie
-"""
-response = get_completion(prompt)
-print(response)
+# prompt = f"""
+# Tell me about AeroGlide UltraSlim Smart Toothbrush by Boie
+# """
+# response = get_completion(prompt)
+# print(response)
+
