@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>贷款计算器</title>
+        <meta charset="UTF-8">
+        <style>
+                input[type="number"] {
+                        width: 100px;
+                }
+        </style>
+</head>
+<body>
+        <h1>个人财务状况</h1>
+        <form>
+                <label for="debt">负债：</label>
+                <input type="number" id="debt" name="debt" required><br><br>
+                <label for="fixed-assets">固定资产：</label>
+                <input type="number" id="fixed-assets" name="fixed-assets" required><br><br>
+                <label for="current-assets">流动资产：</label>
+                <input type="number" id="current-assets" name="current-assets" required><br><br>
+                <label for="income">每月收入：</label>
+                <input type="number" id="income" name="income" required><br><br>
+                <label for="expenses">每月开支：</label>
+                <input type="number" id="expenses" name="expenses" required><br><br>
+        </form>
+        <h1>个人财务目标</h1>
+        <label for="debt">个人财务目标：</label>
+        <input type="string" id="tartget" name="tartget" required><br><br>
+        <button type="button" onclick="consult()">寻求咨询</button>
+        <script>
+            function consult() {
+                
+            }
+        </script>
+</body>
+</html>
